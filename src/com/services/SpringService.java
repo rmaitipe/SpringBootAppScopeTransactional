@@ -1,5 +1,6 @@
 package com.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,15 @@ public class SpringService implements ISpringService {
 		Optional<Student> opt =repo.findById(studentId);
 		if (opt.isPresent()) {
 			return repo.findById(studentId).get();
+		} else {
+			return null;
+		}
+	}
+
+	public List<Student> findAll(){
+		List<Student> opt =repo.findAll();
+		if (!opt.isEmpty()) {
+			return opt;
 		} else {
 			return null;
 		}

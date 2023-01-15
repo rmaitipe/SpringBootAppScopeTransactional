@@ -24,7 +24,7 @@ public class SpringPrototypeForLookUpBean {
 	}
 	
 	private SpringPrototypeForLookUpBean() {
-		System.out.println("SpringPrototypeForLookUpBean instance created");
+		System.out.println("SpringPrototypeForLookUpBean prototype instance created");
     }
 
 	public boolean isModified() {

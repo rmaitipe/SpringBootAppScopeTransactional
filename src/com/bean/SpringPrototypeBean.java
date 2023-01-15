@@ -23,7 +23,7 @@ public class SpringPrototypeBean {
 	}
 	
 	public SpringPrototypeBean() {
-		System.out.println("SpringPrototypeBean instance created");
+		System.out.println("SpringPrototypeBean prototype instance created");
     }
 
 	public boolean isModified() {

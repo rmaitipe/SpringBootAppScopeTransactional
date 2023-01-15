@@ -1,6 +1,8 @@
 package com;
 import javax.annotation.PostConstruct;
 
+import com.bean.SpringPrototypeBean;
+import com.bean.SpringPrototypeForLookUpBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +13,8 @@ import com.bean.SpringSingletonLookUpBean;
 import com.pojo.Student;
 import com.services.ISpringService;
 
+import java.util.List;
+
 /*
  * NPE - Can't use the @Autowired services in constructor because
  * Autowiring happens only after the construction of an object and references in the object will null until then.
@@ -18,7 +22,6 @@ import com.services.ISpringService;
  */
 @SpringBootApplication
 public class FirstSpringBootApp{
-  
 	
     @Autowired 
 	private ISpringService service;
@@ -27,29 +30,37 @@ public class FirstSpringBootApp{
 		System.out.println("part I");
 		ApplicationContext context = SpringApplication.run(FirstSpringBootApp.class, args);
 		SpringSingletonBean bean1 = context.getBean(SpringSingletonBean.class);
-	    bean1.getPrototypeBean();
+		SpringPrototypeBean pb1 =bean1.getPrototypeBean();
 	    SpringSingletonBean bean2 = context.getBean(SpringSingletonBean.class);
-	    bean2.getPrototypeBean();
+		SpringPrototypeBean pb2 =bean2.getPrototypeBean();
+		if (pb1.equals(pb2)){
+			System.out.println("The instances are same");
+		}
 	    System.out.println("part II");
 	    SpringSingletonLookUpBean bean5 = context.getBean(SpringSingletonLookUpBean.class);
-	    bean5.getPrototypeBean();
+		SpringPrototypeForLookUpBean pb3 =bean5.getPrototypeBean();
 	    SpringSingletonLookUpBean bean6 = context.getBean(SpringSingletonLookUpBean.class);
-	    bean6.getPrototypeBean();
+		SpringPrototypeForLookUpBean pb4 = bean6.getPrototypeBean();
+		if (!pb3.equals(pb4)){
+			System.out.println("The instances are not the same");
+		}
 	}
   
   	@PostConstruct
   	public void init() {
 	    System.out.println("part III");
-	    /*Student student1 = new Student(1, "Uno","Last");	    
+	    Student student1 = new Student(1, "Uno","Last");
 	    service.update1(student1);
 	    Student student2 = new Student(3, "Tres","Last");
-		try {    
+		try {
+			System.out.println("This update throws a NPE after save method");
 			service.update2(student2);
 	    } catch (Exception e) {
 	    	System.out.println(e.getMessage());
-	    }*/
-		Student student3= service.find(3);
-	    System.out.println(student3.toString()+ "End part III");		
+	    }
+
+		List<Student> studentAll= service.findAll();
+	    System.out.println(studentAll.toString()+ "End part III");
   	}
   
 }

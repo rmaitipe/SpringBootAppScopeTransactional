@@ -3,6 +3,7 @@ package com.bean;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,7 @@ public class SpringSingletonBean {
 	public boolean isModified;
 	
 	public SpringSingletonBean() {
-		System.out.println("SpringSingletonBean instance created");
+		System.out.println("SpringSingletonBean singleton instance created");
     }
 	
 	public void printHello() {
@@ -39,10 +40,12 @@ public class SpringSingletonBean {
 	public void setModified(boolean isModified) {
 		this.isModified = isModified;
 	}
-	
+
+	//@Lookup solution using Lookup Method
 	public SpringPrototypeBean getPrototypeBean() {
 		System.out.println(String.valueOf(LocalTime.now()));
         return prototype;
+		//return BeanUtil.getBean(SpringPrototypeBean.class); solution using Application context
     }
 	
 }

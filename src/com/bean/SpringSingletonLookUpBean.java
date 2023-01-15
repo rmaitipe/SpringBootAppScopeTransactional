@@ -18,7 +18,7 @@ public class SpringSingletonLookUpBean {
 	public boolean isModified;
 	
 	public SpringSingletonLookUpBean() {
-		System.out.println("SpringSingletonLookUpBean instance created");
+		System.out.println("SpringSingletonLookUpBean singleton instance created");
     }
 	
 	public void printHello() {

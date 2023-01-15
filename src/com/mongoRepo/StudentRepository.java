@@ -3,13 +3,15 @@ package com.mongoRepo;
 
 import com.pojo.Student;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 
 import java.util.Optional;
 
-public interface StudentRepository extends MongoRepository<Student,String> {
-    @Query("{'id':?0}")
-    Optional<Student> findById(Integer id);
+public interface StudentRepository extends JpaRepository<Student,String> {
+
+    @Query(value ="select * from Student s where s.id= :studentId", nativeQuery = true)
+    Optional<Student> findById(int studentId);
+
 }
